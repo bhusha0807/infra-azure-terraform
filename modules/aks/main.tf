@@ -11,7 +11,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   default_node_pool {
     name           = "nodegroup1"
     node_count     = 1
-    vm_size        = "Standard_D2s_v3" # Budget-friendly tier for testing
+    vm_size        = "Standard_D2s_v4" # Budget-friendly tier for testing
     vnet_subnet_id = var.subnet_id
   }
 
