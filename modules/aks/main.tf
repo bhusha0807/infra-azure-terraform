@@ -14,6 +14,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
     vm_size        = "Standard_D2s_v4" # Budget-friendly tier for testing
     vnet_subnet_id = var.subnet_id
   }
+
+# THIS PREVENTS AZURE FROM DRIFTING ON THE OIDC CONFIGURATION
+  oidc_issuer_enabled = true
+
   # THIS SEPARATES INTERNAL KUBERNETES IPS FROM YOUR PHYSICAL VNET IPS
   network_profile {
     network_plugin     = "kubenet"
