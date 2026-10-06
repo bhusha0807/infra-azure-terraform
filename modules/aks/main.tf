@@ -14,6 +14,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
     vm_size        = "Standard_D2s_v4" # Budget-friendly tier for testing
     vnet_subnet_id = var.subnet_id
   }
+  # THIS SEPARATES INTERNAL KUBERNETES IPS FROM YOUR PHYSICAL VNET IPS
+  network_profile {
+    network_plugin     = "kubenet"
+    service_cidr       = "172.16.0.0/16" # Non-overlapping range
+    dns_service_ip     = "172.16.0.10"
+  }
 
   identity {
     type = "SystemAssigned"
