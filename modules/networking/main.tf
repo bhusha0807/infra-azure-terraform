@@ -20,3 +20,11 @@ resource "azurerm_subnet" "aks_subnet" {
 output "subnet_id" { value = azurerm_subnet.aks_subnet.id }
 output "rg_name"   { value = azurerm_resource_group.rg.name }
 output "location"  { value = azurerm_resource_group.rg.location }
+
+resource "azurerm_container_registry" "acr" {
+  name                = "bhushandevopsregistry" # Must be unique globally, lowercase letters and numbers only
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku                 = "Basic"                 # Most cost-effective tier for testing
+  admin_enabled       = true
+}
