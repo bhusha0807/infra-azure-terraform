@@ -6,6 +6,14 @@ terraform {
     }
   }
 }
+  # THIS IS THE REMOTE BACKEND LOCKING IN YOUR STATE FILE
+  backend "azurerm" {
+    resource_group_name  = "tfstate-rg"
+    storage_account_name = "bhushantfstate2026" # Make sure this matches the name from Step 1
+    container_name       = "tfstate"
+    key                  = "dev.terraform.tfstate"
+  }
+}
 
 provider "azurerm" {
   features {}
