@@ -6,7 +6,7 @@ terraform {
     }
   }
 
-  # THIS IS THE REMOTE BACKEND LOCKING IN YOUR STATE FILE
+  # THIS IS THE REMOTE BACKEND LOCKING IN YOUR STATE FILES
   backend "azurerm" {
     resource_group_name  = "tfstate-rg"
     storage_account_name = "bhushantfstate2026" # Make sure this matches the name from Step 1
