@@ -28,3 +28,29 @@ resource "azurerm_container_registry" "acr" {
   sku                 = "Basic"                 # Most cost-effective tier for testing
   admin_enabled       = true
 }
+
+# 1. Create a Network Security Group to act as a cloud firewall
+resource "azurerm_network_security_group" "nsg" {
+  name                = "dev-aks-nsg"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  # Allow public HTTP web traffic on port 80 to pass through cleanly
+  security_rule {
+    name                       = "AllowHTTP"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "80"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
+
+# 2. Attach this firewall group directly onto your cluster's subnet
+resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
+  subnet_id                 = azurerm_subnet.aks_subnet.id
+  network_security_group_id = azurerm_network_security_group.nsg.id
+}
