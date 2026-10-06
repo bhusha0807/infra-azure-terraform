@@ -5,7 +5,7 @@ terraform {
       version = "~> 3.0"
     }
   }
-}
+
   # THIS IS THE REMOTE BACKEND LOCKING IN YOUR STATE FILE
   backend "azurerm" {
     resource_group_name  = "tfstate-rg"
@@ -13,7 +13,7 @@ terraform {
     container_name       = "tfstate"
     key                  = "dev.terraform.tfstate"
   }
-
+}  
 provider "azurerm" {
   features {}
 }
